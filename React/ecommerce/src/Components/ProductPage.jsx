@@ -1,50 +1,54 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {  useState } from "react";
+import { useParams } from "react-router-dom";
+import useProductData from "../useProductData";
+import Comment from "./Comment";
+import { useDispatch } from "react-redux";
+import { addCart } from "../Store/CartSlice";
 
 const ProductPage = () => {
-  let [data, setData] = useState(null);
   const { id } = useParams();
-  
+  const [openIdx, setOpenIdx] = useState(null);
 
-  
+  let data = useProductData(id);
+  let dispatch = useDispatch(); 
 
-  let productData = async () => {
-    let data = await fetch(`https://dummyjson.com/products/${id}`);
-    let productData = await data.json();
-    setData(productData)
-  }
-
-  useEffect(() => {
-    productData();
-  }, [])
-
-  if( data == null ){
+  if (data == null) {
     return <div> ....loading </div>;
   }
-  let { thumbnail , title , price , description , category , rating , brand  } = data ;
- 
+  let { thumbnail, title, price, category, rating, brand, reviews } = data;
 
   return (
-    <div>
-      <div className="card card-side bg-base-100 shadow-xl">
-        <figure>
-          <img
-            src={thumbnail}
-            alt="Movie" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{title}</h2>
-          <h2 className ="card-description">{description}</h2>
-          <p1 className ="card-price">Price  {price}</p1>
-          <p1 className ="card-category">Category : {category}</p1>
-          <p1 className ="card-rating">Rating {rating}</p1>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Add to Cart</button>
+    <div className="w-screen h-screen ">
+      <div>
+        <div className="card card-side bg-base-100 shadow-xl">
+          <figure>
+            <img src={thumbnail} alt="Movie" />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">{title}</h2>
+            <p>Click the button to watch on Jetflix app.</p>
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary" onClick={()=> dispatch(addCart(data))}> Add to cart </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
-}
 
-export default ProductPage
+      <div className="bg-white w-3/4 h-1/2  mx-auto my-2 ">
+        {reviews.map((review, idx) => {
+          return (
+            <Comment
+              key={idx}
+              review={review}
+              openIdx={openIdx}
+              setOpenIdx={setOpenIdx}
+              idx={idx}
+            ></Comment>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default ProductPage;
