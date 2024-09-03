@@ -10,7 +10,7 @@ const Navbar = () => {
 
   // console.log( cartData)
 
-  let lightTheme = "navbar bg-white text-black text-2xl";
+  let lightTheme = "navbar bg-yellow-400 text-black text-2xl";
   let darkTheme = "navbar bg-gray-700 text-primary-content text-2xl";
 
   let themeChange = ()=>{
@@ -19,16 +19,16 @@ const Navbar = () => {
   return (
     <div className={theme == "light" ? lightTheme : darkTheme}>
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">
-          Just Buy{" "}
+        <Link to="/" className="btn btn-ghost text-2xl">
+          Shopify{" "}
         </Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 ">
           <li>
-            <Link to="/food" className="text-2xl text-red-700 ">
+            <Link to="/Instamart" className="text-2xl text-blue-950 ">
               {" "}
-              Food{" "}
+              Instamart{" "}
             </Link>
           </li>
           <li>

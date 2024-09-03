@@ -20,13 +20,13 @@ const Card = ({ productObj }) => {
     event.stopPropagation()
     dispatch(addCart(productObj))
   }  
-let darkTheme = "card bg-slate-600 w-96 shadow-xl m-4"
-let lightTheme = "card bg-gray-400 w-96 shadow-xl m-4 text-black "
+let darkTheme = "card bg-slate-500 w-96 shadow-xl m-4"
+let lightTheme = "card bg-blue-200 w-96 shadow-xl m-4 text-black "
   return (
     <div className={theme == "light" ? lightTheme : darkTheme} onClick={handleNavigation }>
       <figure>
         <img
-          className={theme == "light" ? "bg-white rounded-xl mt-2"  : "bg-slate-700 rounded-xl mt-2"}
+          className={theme == "light" ? "bg-yellow-300 rounded-full mt-2"  : "bg-slate-600 rounded-full mt-2"}
           src={thumbnail}
           alt="Shoes"
         />
